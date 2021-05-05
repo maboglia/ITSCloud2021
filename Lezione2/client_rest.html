@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="dettaglio">
+
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $.getJSON( "database.php", function( data ) {
+    var items = [];
+    $.each( data, function( key, val ) {
+        items.push( "<li id='" + key + "' onclick=detail("+val.id+")>" + val.titolo + "</li>" );
+    });
+    
+    $( "<ul/>", {
+        "class": "my-new-list",
+        html: items.join( "" )
+    }).appendTo( "body" );
+    });
+
+    function detail(id) {
+        
+        $.getJSON("database.php?id="+id, function (film) {
+            console.log(film.genere);
+            $("#dettaglio").html("<h1>"+film.titolo+"</h1>"+"<h2>"+film.genere+"</h2>");
+        });
+
+
+    }
+
+</script>
+</body>
+</html>
